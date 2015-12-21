@@ -1,0 +1,282 @@
+﻿<Window 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:user="clr-namespace:mvvm"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            
+        x:Class="mvvm.MainWindow"
+           Title="MainWindow"
+           Height="550" 
+           Width="676" 
+          Background="#FFFFF05D">
+
+    <Window.DataContext >
+        <user:MyViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <LinearGradientBrush x:Key="MyGrad2"  
+                             EndPoint="0.5,1"
+                             StartPoint="0.5,0">
+            <GradientStop Color="Yellow" Offset="0.5"/>
+            <GradientStop Color="Orange" Offset="0.5"/>
+            <GradientStop Color="OrangeRed" Offset="0.5"/>
+            <GradientStop Color="Red" Offset="1"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="MyGrad"  
+                             EndPoint="0.5,1"
+                             StartPoint="0.5,0">
+            <GradientStop Color="#FFF3F3F3" Offset="0.5"/>
+            <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+            <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+            <GradientStop Color="#FFFB0505" Offset="1"/>
+        </LinearGradientBrush>
+        <DrawingBrush x:Key="FormCanvasGridTile" 
+                      Stretch="None" 
+                      TileMode="Tile" 
+                      Viewport="0,0,10,10" 
+                      ViewportUnits="Absolute">
+            <DrawingBrush.Drawing>
+                <GeometryDrawing>
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <LineGeometry StartPoint="0,0" EndPoint="10,0" />
+                            <LineGeometry StartPoint="10,0" EndPoint="10,10" />
+                            <LineGeometry StartPoint="10,10" EndPoint="0,10" />
+                            <LineGeometry StartPoint="0,10" EndPoint="0,0" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                    <GeometryDrawing.Pen>
+                        <Pen Thickness="1" Brush="LightGray" />
+                    </GeometryDrawing.Pen>
+                    <GeometryDrawing.Brush>
+                        <Brush>White</Brush>
+                    </GeometryDrawing.Brush>
+                </GeometryDrawing>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="30*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30*"></ColumnDefinition>
+            <ColumnDefinition Width="8*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Viewbox Stretch="Uniform" Grid.Row="1">
+            <Border BorderBrush="Black" BorderThickness="1" Margin="5">
+                <Canvas    MouseMove="MouseMoveHandler"
+                           x:Name="chartCanvas"  
+                           HorizontalAlignment="Center" 
+        		           VerticalAlignment="Center" 
+                           Background="{StaticResource FormCanvasGridTile}" 
+        		           Width="400" 
+                           Height="400" 
+                           ClipToBounds="True">
+                    <Canvas.InputBindings>
+                        <MouseBinding MouseAction="LeftClick" Command="{Binding GetPosCommand}"/>
+                    </Canvas.InputBindings>
+                    <Line  X1="0" 
+                           X2="400" 
+                           Y1="200"
+                           Y2="200" 
+                           Stroke="Black" 
+                           StrokeThickness="0.5" 
+                           Height="930"   />
+                    <Line  X1="200" 
+                           X2="200" 
+                           Y1="0" 
+                           Y2="400" 
+                           Stroke="Black" 
+                           Height="930" 
+                           StrokeThickness="0.5" />
+                    <Polyline Points="{Binding Points}"                               
+                           x:Name="pl" 
+                           Stroke="Red" 
+                           StrokeThickness="1.2">
+                    </Polyline>
+                    <Ellipse Fill="REd"
+                             Height="6" 
+                             Canvas.Left="{Binding A}" 
+                             Stroke="Black" 
+                             Canvas.Top="{Binding B}"
+                             Width="6"/>
+                    <Canvas Height="204" Canvas.Left="39" Canvas.Top="98" Width="361">
+                        <TextBlock Canvas.Left="161" TextWrapping="Wrap" Text="            5             10          15          20" Canvas.Top="103" RenderTransformOrigin="-0.099,0.69" Width="200"/>
+                        <Ellipse Fill="Black" Height="3" Canvas.Left="209" Stroke="Black" Canvas.Top="101" Width="3" RenderTransformOrigin="-6.329,0.429"/>
+                        <Ellipse Fill="Black" Height="3" Canvas.Left="309" Stroke="Black" Canvas.Top="101" Width="3" RenderTransformOrigin="8.953,0.429"/>
+                        <Ellipse Fill="Black" Height="3" Canvas.Left="259" Stroke="Black" Canvas.Top="101" Width="3" RenderTransformOrigin="8.87,0.429"/>
+                        <Ellipse Fill="Black" Height="3" Canvas.Left="109" Stroke="Black" Canvas.Top="101" Width="3" RenderTransformOrigin="0.71,1.209"/>
+                        <Ellipse Fill="Black" Height="3" Canvas.Left="59" Stroke="Black" Canvas.Top="101" Width="3"/>
+                        <Ellipse Fill="Black" Height="3" Canvas.Left="9"   Stroke="Black" Canvas.Top="101" Width="3" RenderTransformOrigin="-6.329,0.429"/>
+                        <Ellipse Fill="Black" Height="3" Canvas.Left="159" Stroke="Black" Canvas.Top="51" Width="3" RenderTransformOrigin="-6.329,0.429"/>
+                        <Ellipse Fill="Black" Height="3" Canvas.Left="159" Stroke="Black" Width="3" RenderTransformOrigin="-6.329,0.429"/>
+                        <Ellipse Fill="Black" Height="3" Canvas.Left="159" Stroke="Black" Canvas.Top="151" Width="3" RenderTransformOrigin="0.71,1.209"/>
+                        <Ellipse Fill="Black" Height="3" Canvas.Left="159" Stroke="Black" Canvas.Top="201" Width="3" RenderTransformOrigin="0.71,1.209"/>
+                        <TextBlock TextWrapping="Wrap" Text="-15         -10            -5               0" Canvas.Top="104" Height="15" Width="181"/>
+                        <TextBlock Canvas.Left="169" TextWrapping="Wrap" Text="5" Canvas.Top="40" Width="43"/>
+                        <TextBlock Canvas.Left="169" TextWrapping="Wrap" Text="10"/>
+                    </Canvas>
+                    <TextBlock Canvas.Left="205" TextWrapping="Wrap" Text="-5" Canvas.Top="244" RenderTransformOrigin="-0.771,0.227"/>
+                    <TextBlock Canvas.Left="205" TextWrapping="Wrap" Text="-10" Canvas.Top="286"/>
+                    <Polygon Points="5,-3  7,10 3,10 " Stroke="Black" Fill="Black" Canvas.Left="195" Canvas.Top="4" />
+                    <Polygon Points="0,8 10,10 0,12" Stroke="Black" Fill="Black" Canvas.Left="389" Canvas.Top="190" />
+
+                    <Canvas.RenderTransform>
+                        <ScaleTransform x:Name="st">
+                        </ScaleTransform>
+                    </Canvas.RenderTransform>
+                </Canvas>
+            </Border>
+        </Viewbox>
+        <StackPanel  Margin="10,32,21,11" 
+                     Orientation="Horizontal"
+                     HorizontalAlignment="Left" 
+                     Width="397">
+            <TextBlock Background="#FFFFF05D" 
+                     Text="Y(X)="  
+                     HorizontalAlignment="Left" 
+                     TextWrapping="Wrap"  
+                     VerticalAlignment="Top" 
+                     Height="25" 
+                     Width="78" 
+                     FontSize="20" 
+                     FontFamily="Segoe Script"/>
+            <TextBox Background="{StaticResource ResourceKey=MyGrad}" 
+                     Text="{Binding FunctionText,Mode=TwoWay}"
+                     x:Name="functext"
+                     FontFamily="Segoe Script" 
+                     HorizontalAlignment="Center"
+                     Height="25" 
+                     TextWrapping="Wrap"  
+                     VerticalAlignment="Top" 
+                     Width="314"                    
+                     Foreground="#FF0C0C0C" />
+        </StackPanel>
+        <ComboBox   
+                     ItemsSource="{Binding Box }"
+                     Background="{StaticResource MyGrad}"                 
+                     IsEditable="False"  
+                     FontFamily="Segoe Script"
+                     MaxDropDownHeight="100" 
+                     x:Name="ComboBox" 
+                     HorizontalAlignment="Left" 
+                     Margin="2,32,0,0" 
+                     VerticalAlignment="Top"
+                     Width="91" 
+                     Height="24" 
+                     Text="{Binding BoxText,Mode=TwoWay}" 
+                     Grid.Column="1"
+                     Foreground="Black">
+        </ComboBox>
+        <StackPanel Grid.Column="1" 
+                    Margin="10,125,27,167" 
+                    Orientation="Vertical" 
+                    Grid.Row="1">
+            <StackPanel.Resources>
+                <user:MyViewModel x:Key="Arcvi"/>
+            </StackPanel.Resources>
+            <Button Content="Draw Chart"                     
+                    Background="{StaticResource MyGrad}" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top" 
+                    Width="75" 
+                    IsDefault="False"
+                    Command="{Binding ClickCommand}" Height="34"
+                    />
+            <Button Content="Save" 
+                    Background="{StaticResource MyGrad}"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top" 
+                    Width="75" Click="Button_Click" 
+                   />
+            <Button Content="+"  
+                    Background="{StaticResource MyGrad}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top" 
+                    Width="75"/>
+            <Button Content="-"  
+                    Background="{StaticResource MyGrad}"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top" 
+                    Width="75" IsCancel="True"/>
+        </StackPanel>
+        <Grid Grid.Column="1" Margin="10,10,10,347" Grid.Row="1">
+            <TextBox x:Name="XMin"  
+                     Background="{StaticResource MyGrad}" 
+                     Text="{Binding XMin}" HorizontalAlignment="Left" 
+                     Height="23" 
+                     TextWrapping="Wrap"  
+                     VerticalAlignment="Top"
+                     Width="57" Margin="64,0,0,0"/>
+            <TextBox x:Name="XMax" 
+                     Background="{StaticResource MyGrad}" 
+                     Text="{Binding XMax}" 
+                     HorizontalAlignment="Left" 
+                     Height="23" 
+                     Margin="64,28,0,0"
+                     TextWrapping="Wrap" 
+                     VerticalAlignment="Top" 
+                     Width="57" />
+            <TextBlock HorizontalAlignment="Left"
+                     Margin="-1,0,0,0"
+                     TextWrapping="Wrap" 
+                     Text="XMin" 
+                     VerticalAlignment="Top"
+                     Width="50" Height="23"
+                     FontSize="14"
+                     FontFamily="Forte" RenderTransformOrigin="0.5,0.5">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="0.611"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <TextBlock HorizontalAlignment="Left"
+                     Margin="-6,31,0,0" 
+                     TextWrapping="Wrap"
+                     Text="XMax" 
+                     VerticalAlignment="Top"
+                     Width="50" 
+                     Height="23"
+                     FontFamily="Forte"/>
+        </Grid>
+        <TextBox x:Name="a" 
+                 Background="{StaticResource MyGrad}" 
+                 Text="{Binding PositionOfMouse}"
+                 Grid.Column="1"
+                 HorizontalAlignment="Left" 
+                 Height="24" Margin="85,261,0,0" 
+                 Grid.Row="1" TextWrapping="Wrap"
+                 VerticalAlignment="Top" 
+                 Width="46"/>
+        <TextBox x:Name="a_Copy"
+                 Background="{StaticResource MyGrad}" 
+                 Text="{Binding FunctionValue}"
+                 Grid.Column="1" 
+                 HorizontalAlignment="Left" 
+                 Height="22"
+                 Margin="85,290,0,0"
+                 Grid.Row="1" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="46"/>
+        <TextBlock HorizontalAlignment="Left" Margin="23,261,0,0" Grid.Row="1" TextWrapping="Wrap" Text="X=" VerticalAlignment="Top" RenderTransformOrigin="0.14,1.844" Height="24" Width="22" FontSize="15" Grid.Column="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="23,290,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.14,1.844" Height="24" Width="44" FontSize="15" Grid.Column="1"><Run Language="ru-ru" Text="F("/><Run Text="X"/><Run Language="ru-ru" Text=")"/><Run Text="="/></TextBlock>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="15,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="ru-ru" Text="Function Box"/></TextBlock>
+    </Grid>
+</Window>
+
+
+
+
+
+
+
+        
